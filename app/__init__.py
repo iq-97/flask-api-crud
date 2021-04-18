@@ -1,8 +1,10 @@
 from flask import Flask
-from app.controllers.Controller1 import example_blueprint
+from app.controllers.c_persona import r_persona
 
 app = Flask(__name__)
-app.register_blueprint(example_blueprint)
 
-app.run()
+# Creation of Routes
+app.register_blueprint(r_persona, url_prefix='/personas')
+
+
 
