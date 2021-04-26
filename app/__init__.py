@@ -1,10 +1,12 @@
 from flask import Flask
-from app.controllers.c_persona import r_persona
+from flask_restful import reqparse, abort, Api, Resource
+
+from app.controllers.c_persona import Persona
 
 app = Flask(__name__)
+api = Api(app)
 
-# Creation of Routes
-app.register_blueprint(r_persona, url_prefix='/personas')
-
-
-
+##
+## Actually setup the Api resource routing here
+##
+api.add_resource(Persona, '/personas')
