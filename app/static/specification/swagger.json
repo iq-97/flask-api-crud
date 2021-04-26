@@ -1,0 +1,148 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "api rest hecha en flask",
+    "version": "1.0.0",
+    "title": "prueba api de flask"
+  },
+  "servers": [
+    {
+      "description": "Url local de pruebas",
+      "url": "http://localhost:5000/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Personas",
+      "description": "Personas"
+    }
+  ],
+  "paths": {
+    "/personas": {
+      "get": {
+        "tags": [
+          "Personas"
+        ],
+        "summary": "reporte de promociones por empresas",
+        "description": "Esto solo puede ser realizado por un usuario autenticado y que tenga los privilegios requeridos.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operacion exitosa"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Personas"
+        ],
+        "summary": "Crear un cliente",
+        "description": "Crear un cliente",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/tc_clientes"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "operacion exitosa"
+          },
+          "401": {
+            "description": "Usuario sin autorización"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "description": "pegar unicamente el token generado en el login, \"Bearer\" se concatenara automaticamente",
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "tc_clientes": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "Factura": {
+            "type": "boolean"
+          },
+          "Nit": {
+            "type": "string"
+          },
+          "Nombre": {
+            "type": "string"
+          },
+          "Email": {
+            "type": "string"
+          },
+          "Direccion": {
+            "type": "string"
+          },
+          "Telefono": {
+            "type": "string"
+          },
+          "Referencia": {
+            "type": "string"
+          },
+          "InicioRelacion": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "Estado": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "TCMunicipioId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "TCEncargadoId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "TCEjecutivoId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "TCRutaId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "TCTiposNegocioId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "ADEmpresaId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      }
+    }
+  }
+}
