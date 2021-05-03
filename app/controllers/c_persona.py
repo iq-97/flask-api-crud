@@ -1,4 +1,5 @@
 from flask_restful import reqparse, Resource
+# from ..models.m_persona import Persona
 import os
 
 TODOS = {
@@ -19,6 +20,7 @@ class Persona(Resource):
 
         """Returned list of personas."""
         print(f'API_KEY = {os.getenv("API_KEY")}')
+        # print(Persona.query.all())
         return TODOS, 200
 
     def post(self):
