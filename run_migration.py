@@ -1,5 +1,5 @@
 from app.migrations.db_migration import meta
-from app import engine
+from app.config.connection import engine
 
 
 try:

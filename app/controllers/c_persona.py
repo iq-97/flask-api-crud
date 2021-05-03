@@ -1,5 +1,7 @@
 from flask_restful import reqparse, Resource
-# from ..models.m_persona import Persona
+from ..models.m_persona import Personas
+from ..config.session import session
+from flask import json
 import os
 
 TODOS = {
@@ -26,8 +28,11 @@ class Persona(Resource):
     def post(self):
 
         """Create personas."""
-        args = parser.parse_args()
-        todo_id = int(max(TODOS.keys()).lstrip('todo')) + 1
-        todo_id = 'todo%i' % todo_id
-        TODOS[todo_id] = {'task': args['task']}
-        return TODOS[todo_id], 201
+        c1 = Personas(Nombre='Ravi Kumar', Edad=15, Nacimiento='1997-10-10')
+        session.add(c1)
+        print('hola')
+        print(c1)
+
+
+        session.commit()
+        return c1, 201
