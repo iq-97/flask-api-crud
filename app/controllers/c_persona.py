@@ -1,4 +1,5 @@
-from flask_restful import reqparse, abort, Resource
+from flask_restful import reqparse, Resource
+import os
 
 TODOS = {
     'todo1': {'task': 'build an API'},
@@ -9,15 +10,20 @@ TODOS = {
 parser = reqparse.RequestParser()
 parser.add_argument('task')
 
-# TodoList
-# shows a list of all todos, and lets you POST to add new tasks
-
+# Class of personas
+# CRUD de personas
 
 class Persona(Resource):
+
     def get(self):
-        return TODOS
+
+        """Returned list of personas."""
+        print(f'API_KEY = {os.getenv("API_KEY")}')
+        return TODOS, 200
 
     def post(self):
+
+        """Create personas."""
         args = parser.parse_args()
         todo_id = int(max(TODOS.keys()).lstrip('todo')) + 1
         todo_id = 'todo%i' % todo_id
