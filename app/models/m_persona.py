@@ -12,3 +12,11 @@ class Personas(Base):
     Edad = Column(Integer)
     Nacimiento = Column(DateTime)
 
+    def __repr__(self):
+        return "<Personas(Nombre={self.Nombre!r}, Edad={self.Edad!r}, Nacimiento={self.Nacimiento!r})>".format(self=self)
+
+    def __init__(self, Nombre, Edad, Nacimiento):
+        self.Nombre = Nombre
+        self.Edad = Edad
+        self.Nacimiento = Nacimiento
+

@@ -1,38 +1,29 @@
 from flask_restful import reqparse, Resource
-from ..models.m_persona import Personas
-from ..config.session import session
-from flask import json
-import os
-
-TODOS = {
-    'todo1': {'task': 'build an API'},
-    'todo2': {'task': '?????'},
-    'todo3': {'task': 'profit!'},
-}
-
+from app.models.m_persona import Personas
+from app.schemas.s_persona import PersonaSchema
+from app.config.session import session
+import json
 parser = reqparse.RequestParser()
 parser.add_argument('task')
 
 # Class of personas
 # CRUD de personas
 
+
 class Persona(Resource):
 
     def get(self):
-
         """Returned list of personas."""
-        print(f'API_KEY = {os.getenv("API_KEY")}')
-        # print(Persona.query.all())
-        return TODOS, 200
+        _personas = session.query(Personas).all()
+        _schema = PersonaSchema()
+        data = PersonaSchema(many=True).dump(_personas)
+        return data, 200
 
     def post(self):
-
         """Create personas."""
-        c1 = Personas(Nombre='Ravi Kumar', Edad=15, Nacimiento='1997-10-10')
-        session.add(c1)
-        print('hola')
-        print(c1)
+        _persona = Personas(Nombre='Ravi Kumar', Edad=15, Nacimiento='1997-10-10')
+        _schema = PersonaSchema()
 
-
+        session.add(_persona)
         session.commit()
-        return c1, 201
+        return _schema.dump(_persona), 201
