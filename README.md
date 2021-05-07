@@ -9,3 +9,6 @@ pip install -r requirements.txt -v
 
 # Ejecutar migracion
 python run_migration.py
+
+# Ejecutar aplicacion
+flask run
