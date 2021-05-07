@@ -1,6 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
+from flask_swagger_ui import get_swaggerui_blueprint
 from flask_restful import Api
 from dotenv import load_dotenv
+from flask_cors import CORS
 import os
 
 from app.controllers.c_persona import Persona, PersonaOne
@@ -12,14 +14,25 @@ load_dotenv(dotenv_path)
 
 app = Flask(__name__)
 api = Api(app)
+CORS(app)
 
 # Add routes of controllers created in api
+
+SWAGGER_URL = '/swagger'
+API_URL = '/static/swagger.json'
+
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "Test application"
+    }
+)
+
+app.register_blueprint(swaggerui_blueprint)
 
 api.add_resource(Persona, '/personas')
 api.add_resource(PersonaOne, '/personas/<id>')
 
-@app.route('/')
-def get_docs():
-    # Returns html template of documentation.
-
-    return render_template('swaggerui.html')
+if __name__ == '__main__':
+    app.run(os.getenv("DEBUG"))
