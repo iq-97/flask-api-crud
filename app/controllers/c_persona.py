@@ -2,7 +2,6 @@ from flask_restful import reqparse, Resource
 from app.models.m_persona import Personas
 from app.schemas.s_persona import PersonaSchema
 from app.config.session import session
-import json
 parser = reqparse.RequestParser()
 parser.add_argument('task')
 
@@ -27,3 +26,29 @@ class Persona(Resource):
         session.add(_persona)
         session.commit()
         return _schema.dump(_persona), 201
+
+class PersonaOne(Resource):
+
+    def get(self, id):
+        _persona = session.query(Personas).get(id)
+        _schema = PersonaSchema()
+        data = PersonaSchema().dump(_persona)
+        print(data)
+
+        return data, 200
+
+    def delete(self, id):
+        _persona = session.query(Personas).filter(Personas.id == id).first()
+        session.delete(_persona)
+        session.commit()
+
+        return id, 204
+
+    def put(self, id):
+        _persona = session.query(Personas).filter(Personas.id == id).first()
+        _persona.Nombre = 'Hola Actualizado'
+        _persona.Edad = 19
+        _persona.Nacimiento = '1998-11-11'
+        session.commit()
+
+        return id, 201

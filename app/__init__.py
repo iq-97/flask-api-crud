@@ -3,7 +3,7 @@ from flask_restful import Api
 from dotenv import load_dotenv
 import os
 
-from app.controllers.c_persona import Persona
+from app.controllers.c_persona import Persona, PersonaOne
 
 # Add .env file to environment variables used on project
 APP_ROOT = os.path.join(os.path.dirname(__file__), '..')
@@ -16,6 +16,7 @@ api = Api(app)
 # Add routes of controllers created in api
 
 api.add_resource(Persona, '/personas')
+api.add_resource(PersonaOne, '/personas/<id>')
 
 @app.route('/')
 def get_docs():
