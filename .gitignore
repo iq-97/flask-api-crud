@@ -3,3 +3,6 @@ venv/
 .github/
 .idea/
 __pycache__/
+
+.env
+.flaskenv
